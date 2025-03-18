@@ -1,0 +1,22 @@
+{
+  "/api/**": {
+    "target": {
+      "host": "localhost",
+      "protocol": "https:",
+      "port": 7056
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  },
+  "/static/**": {
+    "target": {
+      "host": "localhost",
+      "protocol": "https:",
+      "port": 7056
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}
