@@ -1,0 +1,56 @@
+<div class="flex flex-col gap-4 p-4">
+  <div class="flex items-center justify-end">
+    <button
+      (click)="createPanel.up()"
+      class="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white"
+    >
+      เพิ่มบทเรียน
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="*:px-4 *:py-2 *:text-left">
+          <th class="max-lg:hidden">ไอดี</th>
+          <th>หมุดบทเรียน</th>
+          <th>ชื่อบทเรียน</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (lesson of lessonStore.lessons(); track $index) {
+          <tr class="*:px-4 *:py-2 odd:bg-stone-50">
+            <td class="max-lg:hidden">{{ lesson.id }}</td>
+            <td>{{ lesson.slug }}</td>
+            <td>{{ lesson.title }}</td>
+            <td>
+              <div class="flex items-center gap-8 font-semibold">
+                <button
+                  (click)="openUpdatePanel(lesson)"
+                  class="text-yellow-600"
+                >
+                  แก้ไข
+                </button>
+                <button (click)="openDeletePanel(lesson)" class="text-red-600">
+                  ลบ
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (createPanel.active) {
+  <app-lesson-create (closed)="createPanel.down()" />
+}
+
+@if (updatePanel.active) {
+  <app-lesson-update (closed)="updatePanel.down()" />
+}
+
+@if (deletePanel.active) {
+  <app-lesson-delete (closed)="deletePanel.down()" />
+}

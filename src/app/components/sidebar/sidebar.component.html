@@ -1,0 +1,38 @@
+<button
+  (click)="menuPanel.up()"
+  class="fixed bottom-4 left-4 z-38 flex size-10 items-center justify-center rounded-lg bg-purple-50 shadow-lg"
+>
+  A
+</button>
+
+<div
+  [class]="`fixed top-0 left-0 z-39 h-dvh w-full transition-all duration-500 ${menuPanel.active ? 'visible opacity-100' : 'invisible opacity-0'}`"
+  (click)="menuPanel.down()"
+></div>
+
+<div
+  [class]="`fixed top-0 z-40 h-dvh w-64 bg-white p-4 transition-all duration-500 rounded-xl ${menuPanel.active ? 'left-0 shadow-2xl' :'-left-64 shadow-none'}`"
+>
+  <nav>
+    <ul class="flex flex-col">
+      <li>
+        <a
+          routerLink="/categories"
+          routerLinkActive="bg-purple-50"
+          (click)="menuPanel.down()"
+          class="block rounded-lg px-4 py-2 font-semibold"
+          >หมวดหมู่</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/lessons"
+          routerLinkActive="bg-purple-50"
+          (click)="menuPanel.down()"
+          class="block rounded-lg px-4 py-2 font-semibold"
+          >บทเรียน</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>

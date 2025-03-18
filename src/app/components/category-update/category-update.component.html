@@ -1,0 +1,19 @@
+<app-overlay>
+  <div
+    class="flex w-full max-w-sm flex-col gap-8 rounded-xl bg-white p-8 shadow-2xl"
+  >
+    <h3 class="text-center text-2xl font-bold">แก้ไขหมวดหมู่</h3>
+    <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold">ชื่อหมวดหมู่</label>
+          <input type="text" placeholder="ระบุชื่อหมวดหมู่" class="rounded border-stone-300" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 place-items-center">
+        <button class="font-semibold text-yellow-600">อัปเดต</button>
+        <button (click)="closed.emit()" class="font-semibold">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+</app-overlay>
