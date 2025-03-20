@@ -47,10 +47,10 @@
   <app-lesson-create (closed)="createPanel.down()" />
 }
 
-@if (updatePanel.active) {
-  <app-lesson-update (closed)="updatePanel.down()" />
+@if (updatePanel.active && focusLesson) {
+  <app-lesson-update [lesson]="focusLesson" (closed)="updatePanel.down()" />
 }
 
-@if (deletePanel.active) {
-  <app-lesson-delete (closed)="deletePanel.down()" />
+@if (deletePanel.active && focusLesson) {
+  <app-lesson-delete [lesson]="focusLesson" (closed)="deletePanel.down()" />
 }

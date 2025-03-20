@@ -24,6 +24,11 @@ export class ContentService {
   loadedCategories = false;
   loadedLessons = false;
 
+  constructor() {
+    this.loadCategories();
+    this.loadLessons();
+  }
+
   loadCategories() {
     // Prevent new load on loaded
     if (this.loadedCategories) {
@@ -55,7 +60,7 @@ export class ContentService {
   getCategories() {
     return this.http
       .get<Category[]>('api/category')
-      .pipe(tap(this.categoryStore.categories.set));
+      .pipe(tap((categories) => this.categoryStore.categories.set(categories)));
   }
 
   getCategory(id: string) {
@@ -65,7 +70,7 @@ export class ContentService {
   getLessons() {
     return this.http
       .get<Lesson[]>('api/lesson')
-      .pipe(tap(this.lessonStore.lessons.set));
+      .pipe(tap((lessons) => this.lessonStore.lessons.set(lessons)));
   }
 
   getLesson(id: string) {
@@ -75,13 +80,13 @@ export class ContentService {
   createCategory(dto: CreateCategoryDto) {
     return this.http
       .post<Category>('api/category', dto)
-      .pipe(tap(this.categoryStore.add));
+      .pipe(tap((category) => this.categoryStore.add(category)));
   }
 
   updateCategory(id: string, dto: UpdateCategoryDto) {
     return this.http
       .put<Category>(`api/category/${id}`, dto)
-      .pipe(tap(this.categoryStore.update));
+      .pipe(tap((category) => this.categoryStore.update(category)));
   }
 
   deleteCategory(id: string) {
@@ -93,19 +98,19 @@ export class ContentService {
   createLesson(dto: CreateLessonDto) {
     return this.http
       .post<Lesson>('api/lesson', dto)
-      .pipe(tap(this.lessonStore.add));
+      .pipe(tap((lesson) => this.lessonStore.add(lesson)));
   }
 
   updateLesson(id: string, dto: UpdateLessonDto) {
     return this.http
       .put<Lesson>(`api/lesson/${id}`, dto)
-      .pipe(tap(this.lessonStore.update));
+      .pipe(tap((lesson) => this.lessonStore.update(lesson)));
   }
 
   updateLessonContent(id: string, dto: UpdateLessonContentDto) {
     return this.http
       .put<Lesson>(`api/lesson/${id}/content`, dto)
-      .pipe(tap(this.lessonStore.update));
+      .pipe(tap((lesson) => this.lessonStore.update(lesson)));
   }
 
   deleteLesson(id: string) {

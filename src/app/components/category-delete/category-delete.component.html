@@ -3,12 +3,14 @@
     class="flex w-full max-w-sm flex-col gap-8 rounded-xl bg-white p-8 shadow-2xl"
   >
     <h3 class="text-center text-2xl font-bold">ลบหมวดหมู่</h3>
-    <div class="flex flex-col gap-8">
+    <form [formGroup]="form" (ngSubmit)="delete()" class="flex flex-col gap-8">
       <p>ยืนยันที่จะลบหรือไม่</p>
       <div class="grid grid-cols-2 place-items-center">
-        <button class="font-semibold text-red-600">ลบ</button>
-        <button (click)="closed.emit()" class="font-semibold">ยกเลิก</button>
+        <button type="submit" class="font-semibold text-red-600">ลบ</button>
+        <button type="button" (click)="closed.emit()" class="font-semibold">
+          ยกเลิก
+        </button>
       </div>
-    </div>
+    </form>
   </div>
 </app-overlay>

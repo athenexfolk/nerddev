@@ -50,10 +50,16 @@
   <app-category-create (closed)="createPanel.down()" />
 }
 
-@if (updatePanel.active) {
-  <app-category-update (closed)="updatePanel.down()" />
+@if (updatePanel.active && focusCategory) {
+  <app-category-update
+    [category]="focusCategory"
+    (closed)="updatePanel.down()"
+  />
 }
 
-@if (deletePanel.active) {
-  <app-category-delete (closed)="deletePanel.down()" />
+@if (deletePanel.active && focusCategory) {
+  <app-category-delete
+    [category]="focusCategory"
+    (closed)="deletePanel.down()"
+  />
 }
