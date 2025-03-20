@@ -18,7 +18,10 @@ export class CategoryUpdateComponent {
   closed = output();
 
   form = this.#fb.group({
-    name: ['', [Validators.required]],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(100)],
+    ],
   });
 
   get name() {

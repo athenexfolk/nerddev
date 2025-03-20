@@ -18,9 +18,20 @@ export class LessonCreateComponent {
   closed = output();
 
   form = this.#fb.group({
-    slug: ['', [Validators.required]],
+    slug: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(100),
+        Validators.pattern(/^[a-z][a-z0-9-]*[a-z]$/),
+      ],
+    ],
     category: ['', [Validators.required]],
-    title: ['', [Validators.required]],
+    title: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(100)],
+    ],
   });
 
   get slug() {

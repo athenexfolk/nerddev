@@ -16,8 +16,19 @@ export class CategoryCreateComponent {
   closed = output();
 
   form = this.#fb.group({
-    slug: ['', [Validators.required]],
-    name: ['', [Validators.required]],
+    slug: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(100),
+        Validators.pattern(/^[a-z][a-z0-9-]*[a-z]$/),
+      ],
+    ],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(100)],
+    ],
   });
 
   get slug() {

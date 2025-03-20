@@ -18,7 +18,10 @@ export class LessonUpdateComponent {
   closed = output();
 
   form = this.#fb.group({
-    title: ['', [Validators.required]],
+    title: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(100)],
+    ],
   });
 
   get title() {

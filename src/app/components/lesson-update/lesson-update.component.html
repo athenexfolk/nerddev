@@ -16,6 +16,17 @@
             placeholder="ระบุชื่อบทเรียน"
             class="rounded border-stone-300"
           />
+          @if (title?.hasError("required") && title?.touched) {
+            <span class="text-xs text-red-500">โปรดระบุชื่อบทเรียน</span>
+          }
+          @if (
+            (title?.hasError("minlength") || title?.hasError("maxlength")) &&
+            title?.touched
+          ) {
+            <span class="text-xs text-red-500"
+              >ความยาวชื่อบทเรียนต้องอยู่ระหว่าง 1-100 ตัวอักษร</span
+            >
+          }
         </div>
       </div>
       <div class="grid grid-cols-2 place-items-center">

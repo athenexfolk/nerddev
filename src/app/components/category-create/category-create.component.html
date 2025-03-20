@@ -16,6 +16,24 @@
             placeholder="ระบุหมุดหมวดหมู่"
             class="rounded border-stone-300"
           />
+          @if (slug?.hasError("required") && slug?.touched) {
+            <span class="text-xs text-red-500">โปรดระบุหมุดหมวดหมู่</span>
+          }
+          @if (
+            (slug?.hasError("minlength") || slug?.hasError("maxlength")) &&
+            slug?.touched
+          ) {
+            <span class="text-xs text-red-500"
+              >ความยาวหมุดหมวดหมู่ต้องอยู่ระหว่าง 1-100 ตัวอักษร</span
+            >
+          }
+          @if (slug?.hasError("pattern") && slug?.touched) {
+            <span class="text-xs text-red-500"
+              >หมุดหมวดหมู่ต้องขึ้นต้นและลงท้ายด้วยอักษรภาษาอังกฤษ
+              และต้องประกอบตัวอักษรภาษาอังกฤษพิมพ์เล็ก ตัวเลข
+              และขีดเท่านั้น</span
+            >
+          }
         </div>
         <div class="flex flex-col gap-1">
           <label class="text-sm font-semibold" for="categoryName"
@@ -28,6 +46,17 @@
             placeholder="ระบุชื่อหมวดหมู่"
             class="rounded border-stone-300"
           />
+          @if (name?.hasError("required") && name?.touched) {
+            <span class="text-xs text-red-500">โปรดระบุชื่อหมวดหมู่</span>
+          }
+          @if (
+            (name?.hasError("minlength") || name?.hasError("maxlength")) &&
+            name?.touched
+          ) {
+            <span class="text-xs text-red-500"
+              >ความยาวชื่อหมวดหมู่ต้องอยู่ระหว่าง 1-100 ตัวอักษร</span
+            >
+          }
         </div>
       </div>
       <div class="grid grid-cols-2 place-items-center">
