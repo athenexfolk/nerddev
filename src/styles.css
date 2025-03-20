@@ -23,3 +23,12 @@ body {
   color: var(--color-purple-700);
   border-color: var(--color-purple-700);
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+}

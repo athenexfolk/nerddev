@@ -31,6 +31,9 @@
                 >
                   แก้ไข
                 </button>
+                <a [routerLink]="['/lessons', lesson.id]" class="text-blue-600">
+                  เนื้อหา
+                </a>
                 <button (click)="openDeletePanel(lesson)" class="text-red-600">
                   ลบ
                 </button>

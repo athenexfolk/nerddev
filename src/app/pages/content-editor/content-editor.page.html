@@ -1,0 +1,49 @@
+<div class="grid grid-cols-2 gap-4">
+  <textarea
+    [(ngModel)]="content"
+    (ngModelChange)="parseWithDebounce()"
+    class="scrollbar sticky top-0 block h-dvh w-full resize-none border-none p-4 ring-0"
+  ></textarea>
+  <div class="p-4">
+    <div
+      #md
+      class="prose prose-sm md:prose-base prose-stone prose-blockquote:not-italic prose-blockquote:bg-stone-100 prose-blockquote:py-2 prose-blockquote:px-4 prose-img:max-w-lg prose-img:w-full prose-figure:max-w-lg prose-figure:w-full prose-figure:mx-auto prose-img:mx-auto max-w-screen-2xl pb-20"
+    ></div>
+  </div>
+</div>
+
+<button
+  (click)="confirmPanel.up()"
+  class="fixed right-4 bottom-4 flex size-10 items-center justify-center rounded-lg bg-blue-50 shadow-lg"
+>
+  S
+</button>
+
+@if (confirmPanel.active) {
+  <app-overlay>
+    <div
+      class="flex w-full max-w-sm flex-col gap-8 rounded-xl bg-white p-8 shadow-2xl"
+    >
+      <h3 class="text-center text-2xl font-bold">บันทึกเนื้อหา</h3>
+      <form
+        [formGroup]="form"
+        (ngSubmit)="saveChanges()"
+        class="flex flex-col gap-8"
+      >
+        <p>ยืนยันที่จะบันทึกหรือไม่</p>
+        <div class="grid grid-cols-2 place-items-center">
+          <button type="submit" class="font-semibold text-blue-600">
+            บันทึก
+          </button>
+          <button
+            type="button"
+            (click)="confirmPanel.down()"
+            class="font-semibold"
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </form>
+    </div>
+  </app-overlay>
+}

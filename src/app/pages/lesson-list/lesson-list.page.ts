@@ -6,6 +6,7 @@ import { LessonDeleteComponent } from '../../components/lesson-delete/lesson-del
 import { LessonUpdateComponent } from '../../components/lesson-update/lesson-update.component';
 import { Toggler } from '../../shared/utils/toggler';
 import type { Lesson } from '../../core/models/lesson';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lesson-list',
@@ -13,6 +14,7 @@ import type { Lesson } from '../../core/models/lesson';
     LessonCreateComponent,
     LessonDeleteComponent,
     LessonUpdateComponent,
+    RouterLink
   ],
   templateUrl: './lesson-list.page.html',
   styleUrl: './lesson-list.page.css',
