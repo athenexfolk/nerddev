@@ -1,0 +1,38 @@
+<div class="grid grid-cols-4">
+  <div
+    (click)="photoInput.click()"
+    role="button"
+    class="relative block aspect-video p-2"
+  >
+    <div
+      class="flex h-full w-full items-center justify-center rounded-xl border-2 border-dashed border-purple-500 font-semibold text-purple-500"
+    >
+      อัปโหลด
+    </div>
+  </div>
+  @for (photo of mediaService.photos(); track $index) {
+    <div class="group relative aspect-video overflow-hidden transition-all">
+      <div class="absolute top-0 left-0 h-full w-full">
+        <img [src]="photo" class="h-full w-full object-cover object-center" />
+      </div>
+      <div
+        class="invisible absolute top-0 left-0 flex h-full w-full items-center justify-center bg-black/10 opacity-0 transition-all group-hover:visible group-hover:opacity-100 group-hover:backdrop-blur-xs"
+      >
+        <button
+          (click)="copyToClipboard(photo)"
+          class="rounded-lg bg-purple-500 px-4 py-2 font-semibold text-white shadow"
+        >
+          คัดลอกลิงก์
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<input
+  type="file"
+  accept="images/*"
+  (input)="onFileInput($event)"
+  class="hidden"
+  #photoInput
+/>

@@ -28,6 +28,37 @@
             >
           }
         </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold" for="lessonCover"
+            >ภาพปกบทเรียน</label
+          >
+          <div class="flex flex-col gap-2">
+            @if (!cover?.value) {
+              <button
+                type="button"
+                (click)="photoInput.click()"
+                class="flex aspect-video items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-stone-300 bg-stone-50 font-semibold"
+              >
+                อัปโหลด
+              </button>
+            } @else {
+              <div class="relative">
+                <img
+                  [src]="cover?.value"
+                  class="aspect-video h-full w-full rounded-xl object-cover object-center"
+                  alt="cover image"
+                />
+                <button
+                  type="button"
+                  (click)="clearCover()"
+                  class="absolute right-2 bottom-2 flex size-8 items-center justify-center rounded-full bg-red-50 text-red-500"
+                >
+                  D
+                </button>
+              </div>
+            }
+          </div>
+        </div>
       </div>
       <div class="grid grid-cols-2 place-items-center">
         <button type="submit" class="font-semibold text-yellow-600">
@@ -40,3 +71,11 @@
     </form>
   </div>
 </app-overlay>
+
+<input
+  type="file"
+  accept="images/*"
+  (input)="onFileInput($event)"
+  class="hidden"
+  #photoInput
+/>
