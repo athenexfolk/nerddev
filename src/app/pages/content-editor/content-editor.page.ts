@@ -14,10 +14,11 @@ import type { Subscription } from 'rxjs/internal/Subscription';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { OverlayComponent } from '../../shared/components/overlay/overlay.component';
 import { Toggler } from '../../shared/utils/toggler';
+import { PhotosPage } from "../photos/photos.page";
 
 @Component({
   selector: 'app-content-editor',
-  imports: [FormsModule, OverlayComponent, ReactiveFormsModule],
+  imports: [FormsModule, OverlayComponent, ReactiveFormsModule, PhotosPage],
   templateUrl: './content-editor.page.html',
   styleUrl: './content-editor.page.css',
 })
@@ -37,6 +38,7 @@ export class ContentEditorPage {
   parseSubscription!: Subscription;
 
   confirmPanel = new Toggler();
+  photoPanel = new Toggler();
 
   ngOnInit() {
     this.#contentService.getLesson(this.lessonId()).subscribe({

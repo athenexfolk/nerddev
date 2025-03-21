@@ -2,8 +2,14 @@
   <textarea
     [(ngModel)]="content"
     (ngModelChange)="parseWithDebounce()"
-    class="scrollbar sticky top-0 block h-dvh w-full resize-none border-none p-4 ring-0"
+    class="scrollbar sticky top-0 block h-dvh w-full resize-none border-none px-4 py-20 ring-0"
   ></textarea>
+  <button
+    (click)="photoPanel.up()"
+    class="fixed top-4 left-4 flex size-10 items-center justify-center rounded-lg bg-yellow-50 shadow-lg"
+  >
+    P
+  </button>
   <div class="p-4">
     <div
       #md
@@ -44,6 +50,22 @@
           </button>
         </div>
       </form>
+    </div>
+  </app-overlay>
+}
+
+@if (photoPanel.active) {
+  <app-overlay>
+    <div
+      class="scrollbar relative flex h-full w-full flex-col gap-8 overflow-auto rounded-xl bg-white p-4 shadow-2xl"
+    >
+      <app-photos />
+      <button
+        (click)="photoPanel.down()"
+        class="fixed top-4 right-4 flex size-10 items-center justify-center rounded-lg bg-red-50 shadow-lg"
+      >
+        X
+      </button>
     </div>
   </app-overlay>
 }
