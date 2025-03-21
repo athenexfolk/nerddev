@@ -6,6 +6,11 @@ import { PhotosPage } from './pages/photos/photos.page';
 
 export const routes: Routes = [
   {
+    path: "",
+    redirectTo: 'categories',
+    pathMatch: 'full',
+  },
+  {
     path: 'categories',
     component: CategoryListPage,
   },
