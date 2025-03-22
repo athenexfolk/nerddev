@@ -1,29 +1,35 @@
 import { Routes } from '@angular/router';
-import { CategoryListPage } from './pages/category-list/category-list.page';
-import { LessonListPage } from './pages/lesson-list/lesson-list.page';
-import { ContentEditorPage } from './pages/content-editor/content-editor.page';
-import { PhotosPage } from './pages/photos/photos.page';
 
 export const routes: Routes = [
   {
-    path: "",
+    path: '',
     redirectTo: 'categories',
     pathMatch: 'full',
   },
   {
     path: 'categories',
-    component: CategoryListPage,
+    loadComponent: () =>
+      import('./pages/category-list/category-list.page').then(
+        (c) => c.CategoryListPage,
+      ),
   },
   {
     path: 'lessons',
-    component: LessonListPage,
+    loadComponent: () =>
+      import('./pages/lesson-list/lesson-list.page').then(
+        (c) => c.LessonListPage,
+      ),
   },
   {
     path: 'lessons/:lessonId',
-    component: ContentEditorPage,
+    loadComponent: () =>
+      import('./pages/content-editor/content-editor.page').then(
+        (c) => c.ContentEditorPage,
+      ),
   },
   {
     path: 'photos',
-    component: PhotosPage,
+    loadComponent: () =>
+      import('./pages/photos/photos.page').then((c) => c.PhotosPage),
   },
 ];
