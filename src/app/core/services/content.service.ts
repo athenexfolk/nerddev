@@ -12,6 +12,7 @@ import {
 import { CategoryStoreService } from '../stores/category-store.service';
 import { tap } from 'rxjs';
 import { LessonStoreService } from '../stores/lesson-store.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -117,5 +118,50 @@ export class ContentService {
     return this.http
       .delete(`api/lesson/${id}`)
       .pipe(tap(() => this.lessonStore.remove(id)));
+  }
+
+  exportLesson() {
+    this.http
+      .get('api/feature/export', { responseType: 'blob', observe: 'response' })
+      .subscribe((response) => {
+        const blob = response.body!;
+        const contentDisposition = response.headers.get('Content-Disposition');
+
+        const filename = this.getFileNameFromContentDisposition(
+          contentDisposition,
+          'export.zip',
+        );
+
+        this.downloadBlob(blob, filename);
+      });
+  }
+
+  private getFileNameFromContentDisposition(
+    contentDisposition: string | null,
+    defaultFileName: string,
+  ) {
+    let filename = defaultFileName;
+    if (contentDisposition) {
+      let match = contentDisposition.match(/filename\*=UTF-8''(.+?)(;|$)/);
+      if (match) {
+        filename = decodeURIComponent(match[1]);
+      } else {
+        match = contentDisposition.match(/filename="?(.+?)"?($|;)/);
+        if (match) {
+          filename = match[1];
+        }
+      }
+    }
+
+    return filename;
+  }
+
+  private downloadBlob(blob: Blob, filename: string) {
+    const link = document.createElement('a');
+    const downloadURL = URL.createObjectURL(blob);
+    link.href = downloadURL;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(downloadURL);
   }
 }
