@@ -7,18 +7,19 @@ import {
 } from '@angular/core';
 import { ContentService } from '../../core/services/content.service';
 import type { Lesson } from '../../core/models/lesson';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MarkedService } from '../../core/services/marked.service';
 import { Subject } from 'rxjs/internal/Subject';
 import type { Subscription } from 'rxjs/internal/Subscription';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { OverlayComponent } from '../../shared/components/overlay/overlay.component';
 import { Toggler } from '../../shared/utils/toggler';
-import { PhotosPage } from "../photos/photos.page";
+import { PhotosPage } from '../photos/photos.page';
+import * as monaco from 'monaco-editor';
 
 @Component({
   selector: 'app-content-editor',
-  imports: [FormsModule, OverlayComponent, ReactiveFormsModule, PhotosPage],
+  imports: [OverlayComponent, ReactiveFormsModule, PhotosPage],
   templateUrl: './content-editor.page.html',
   styleUrl: './content-editor.page.css',
 })
@@ -31,11 +32,13 @@ export class ContentEditorPage {
 
   lessonId = input.required<string>();
   mdRef = viewChild.required<ElementRef<HTMLElement>>('md');
+  editorRef = viewChild.required<ElementRef<HTMLElement>>('editor');
+  editor?: monaco.editor.IStandaloneCodeEditor;
+
   lesson?: Lesson;
-  content = '';
 
   parseSubject = new Subject<void>();
-  parseSubscription!: Subscription;
+  parseSubscription?: Subscription;
 
   confirmPanel = new Toggler();
   photoPanel = new Toggler();
@@ -44,7 +47,7 @@ export class ContentEditorPage {
     this.#contentService.getLesson(this.lessonId()).subscribe({
       next: (lesson) => {
         this.lesson = lesson;
-        this.content = lesson.content ?? '';
+        this.initEditor(lesson.content || '');
         this.parse();
       },
     });
@@ -57,13 +60,14 @@ export class ContentEditorPage {
   }
 
   ngOnDestroy() {
-    if (this.parseSubscription) {
-      this.parseSubscription.unsubscribe();
-    }
+    this.parseSubscription?.unsubscribe();
   }
 
   parse() {
-    this.#markedService.parse(this.mdRef().nativeElement, this.content);
+    this.#markedService.parse(
+      this.mdRef().nativeElement,
+      this.editor?.getValue() || '',
+    );
   }
 
   parseWithDebounce() {
@@ -72,7 +76,9 @@ export class ContentEditorPage {
 
   saveChanges() {
     this.#contentService
-      .updateLessonContent(this.lessonId(), { content: this.content })
+      .updateLessonContent(this.lessonId(), {
+        content: this.editor?.getValue() || '',
+      })
       .subscribe({
         next: () => {
           this.confirmPanel.down();
@@ -81,5 +87,18 @@ export class ContentEditorPage {
           console.error(error);
         },
       });
+  }
+
+  initEditor(initialValue: string = '') {
+    this.editor = monaco.editor.create(this.editorRef().nativeElement, {
+      value: initialValue,
+      theme: 'vs',
+      language: 'markdown',
+      automaticLayout: true
+    });
+
+    this.editor.onDidChangeModelContent(() => {
+      this.parseWithDebounce();
+    });
   }
 }
