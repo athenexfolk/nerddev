@@ -1,8 +1,8 @@
-<div class="grid grid-cols-4">
+<div class="grid grid-cols-4 gap-1 p-1 sm:grid-cols-6 md:grid-cols-8">
   <div
     (click)="photoInput.click()"
     role="button"
-    class="relative block aspect-video p-2"
+    class="relative block aspect-square"
   >
     <div
       class="flex h-full w-full items-center justify-center rounded-xl border-2 border-dashed border-purple-500 font-semibold text-purple-500"
@@ -11,7 +11,7 @@
     </div>
   </div>
   @for (photo of mediaService.photos(); track $index) {
-    <div class="group relative aspect-video overflow-hidden transition-all">
+    <div class="group relative aspect-square overflow-hidden transition-all">
       <div class="absolute top-0 left-0 h-full w-full">
         <img [src]="photo" class="h-full w-full object-cover object-center" />
       </div>
