@@ -109,9 +109,7 @@ export class ContentService {
   }
 
   updateLessonContent(id: string, dto: UpdateLessonContentDto) {
-    return this.http
-      .put<Lesson>(`api/lesson/${id}/content`, dto)
-      .pipe(tap((lesson) => this.lessonStore.update(lesson)));
+    return this.http.put<Lesson>(`api/lesson/${id}/content`, dto);
   }
 
   deleteLesson(id: string) {
